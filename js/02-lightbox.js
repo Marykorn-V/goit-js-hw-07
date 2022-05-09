@@ -17,12 +17,4 @@ const galleryList = galleryItems.map(item =>
 ).join('');
 blockGallery.innerHTML = galleryList;
 
-blockGallery.addEventListener('click', (event) => {
-  event.preventDefault();
-  if (event.target.nodeName !== 'IMG') {
-    return;
-    }
-    let gallery = new SimpleLightbox('.gallery a', {captionsData: 'alt'});
-gallery.on('show.simplelightbox');
-  console.log(event);
-})
+const gallery = new SimpleLightbox('.gallery a', {captionsData: 'alt'});

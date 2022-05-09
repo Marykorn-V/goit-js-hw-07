@@ -5,8 +5,8 @@ console.log(galleryItems);
 
 const blockGallery = document.querySelector('.gallery');
 
-const galleryList = galleryItems.map(item => 
-    `<div class="gallery__item">
+const galleryList = galleryItems.map(item =>
+  `<div class="gallery__item">
   <a class="gallery__link" href="${item.original}">
     <img
       class="gallery__image"
@@ -22,14 +22,29 @@ let roadImg;
 function onOpenModalImg() {
   if (event.target.nodeName !== 'IMG') {
     return;
-  } 
-  roadImg = event.target.closest('.gallery__image');
+  }
+
   roadImg = basicLightbox.create(`
     <img
-      src="${roadImg.dataset.source}"
+      src="${event.target.dataset.source}"
     />
-`)
- roadImg.show()
+`, {
+    onShow: (roadImg) => {
+  window.addEventListener('keydown', (event) => {
+
+  if (event.code === "Escape") {
+    roadImg.close();
+  }
+});
+    }, onClose: (roadImg) => {
+    window.addEventListener('keydown', (event) => {
+
+  if (event.code === "Escape") {
+    roadImg.close();
+  }
+});
+}})
+  roadImg.show()
 }
 
 blockGallery.addEventListener('click', (event) => {
@@ -37,9 +52,4 @@ blockGallery.addEventListener('click', (event) => {
   onOpenModalImg();
 })
 
-window.addEventListener('keydown', (event) => {
-  
-  if (event.code === "Escape") {
-    roadImg.close();
-  }
-});
+
