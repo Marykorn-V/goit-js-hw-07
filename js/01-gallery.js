@@ -17,19 +17,14 @@ const galleryList = galleryItems.map(item =>
   </a>
 </div>`
 ).join('');
+
 blockGallery.innerHTML = galleryList;
-let roadImg;
 
-function onOpenModalImg() {
-  if (event.target.nodeName !== 'IMG') {
-    return;
-  }
-
-  roadImg = basicLightbox.create(`
-    <img
-      src="${event.target.dataset.source}"
-    />
-`, {
+const roadImg = basicLightbox.create(`
+    <img class="modal-img"
+      src=""
+      />`,
+  {
     onShow: (roadImg) => {
   window.addEventListener('keydown', onClickEscClose);
     },
@@ -37,7 +32,16 @@ function onOpenModalImg() {
     {
       onClose: (roadImg) => {
     window.removeEventListener('keydown', onClickEscClose);
-}})
+    }
+  });
+
+function onOpenModalImg(event) {
+   event.preventDefault();
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  roadImg.element().querySelector('.modal-img').src = event.target.dataset.source;
   roadImg.show()
 }
 
@@ -49,9 +53,6 @@ function onClickEscClose(event) {
   }
 }
 
-blockGallery.addEventListener('click', (event) => {
-  event.preventDefault();
-  onOpenModalImg();
-})
+blockGallery.addEventListener('click', onOpenModalImg());
 
 
