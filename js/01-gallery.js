@@ -19,6 +19,7 @@ const galleryList = galleryItems.map(item =>
 ).join('');
 blockGallery.innerHTML = galleryList;
 let roadImg;
+
 function onOpenModalImg() {
   if (event.target.nodeName !== 'IMG') {
     return;
@@ -30,21 +31,22 @@ function onOpenModalImg() {
     />
 `, {
     onShow: (roadImg) => {
-  window.addEventListener('keydown', (event) => {
-
-  if (event.code === "Escape") {
-    roadImg.close();
-  }
-});
-    }, onClose: (roadImg) => {
-    window.addEventListener('keydown', (event) => {
-
-  if (event.code === "Escape") {
-    roadImg.close();
-  }
-});
+  window.addEventListener('keydown', onClickEscClose);
+    },
+  },
+    {
+      onClose: (roadImg) => {
+    window.removeEventListener('keydown', onClickEscClose);
 }})
   roadImg.show()
+}
+
+function onClickEscClose(event) {
+  if (event.code === "Escape") {
+    roadImg.close();
+    console.log(event.code);
+    return;
+  }
 }
 
 blockGallery.addEventListener('click', (event) => {
