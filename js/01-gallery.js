@@ -53,6 +53,6 @@ function onClickEscClose(event) {
   }
 }
 
-blockGallery.addEventListener('click', onOpenModalImg());
+blockGallery.addEventListener('click', onOpenModalImg);
 
 
