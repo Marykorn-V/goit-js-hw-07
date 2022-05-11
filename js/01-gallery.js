@@ -25,12 +25,10 @@ const roadImg = basicLightbox.create(`
       src=""
       />`,
   {
-    onShow: (roadImg) => {
+    onShow: roadImg => {
   window.addEventListener('keydown', onClickEscClose);
     },
-  },
-    {
-      onClose: (roadImg) => {
+      onClose: roadImg => {
     window.removeEventListener('keydown', onClickEscClose);
     }
   });
